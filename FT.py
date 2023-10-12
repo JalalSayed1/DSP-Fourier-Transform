@@ -54,6 +54,10 @@ def plot_time_domain(data, time_axis, title):
     plt.title(title)
     # plt.show()
 
+def freq_to_index(freq, sampling_rate, data_length):
+    '''Returns the index of the frequency in the frequency spectrum.'''
+    return int(freq / (sampling_rate/2) * data_length)
+
 def clarify_sound(fft_data, sampling_rate, low_freq, high_freq, damping_factor = 0.1, boost_factor = 10):
     '''Clarifies the sound by damping all data then boosting the frequency spectrum between low_freq and high_freq.
     damping_factor: the factor to damp all frequencies (linear scale). Default is 0.1.
@@ -61,8 +65,8 @@ def clarify_sound(fft_data, sampling_rate, low_freq, high_freq, damping_factor =
     '''
     
     # index = freq/nyquist freq * number of samples. Nyquist freq = 1/2 * sampling rate 
-    low_index = int(low_freq / (sampling_rate/2) * len(fft_data))
-    high_index = int(high_freq / (sampling_rate/2) * len(fft_data))
+    low_index = freq_to_index(low_freq, sampling_rate, len(fft_data))
+    high_index = freq_to_index(high_freq, sampling_rate, len(fft_data))
     
     # damp all frequencies first then only boost the desired frequencies:
     fft_data *= damping_factor # damp all frequencies
@@ -70,20 +74,30 @@ def clarify_sound(fft_data, sampling_rate, low_freq, high_freq, damping_factor =
     
     return fft_data
 
+def remove_noise(low_freq, high_freq, data, sampling_rate, damping_factor = 0.01):
+    '''Removes noise by damping the frequency spectrum between low_freq and high_freq.'''
+    
+    low_index = freq_to_index(low_freq, sampling_rate, len(data))
+    high_index = freq_to_index(high_freq, sampling_rate, len(data))
+    
+    data[low_index:high_index] *= damping_factor
+    
+    return data
+    
 
 #' Read and normalize wav file
 rate1, data1, time1 = read_and_normalize_wav('sound1.wav')
 rate2, data2, time2 = read_and_normalize_wav('sound2.wav')
 
-# plot_time_domain(data1, time1, "Original Time domain of sound1.wav")
+plot_time_domain(data1, time1, "Original Time domain of sound1.wav")
 # plot_time_domain(data2, time2, "Original Time domain of sound2.wav")
 
 #' Plot in the frequency domain
 freqs1, fft_data1 = my_fft(data1, rate1)
-freq2, fft_data2 = my_fft(data2, rate2)
+freqs2, fft_data2 = my_fft(data2, rate2)
 
 plot_frequency_domain(np.abs(fft_data1), freqs1, "Frequency domain of sound1.wav")
-plot_frequency_domain(np.abs(fft_data2), freq2, "Frequency domain of sound2.wav")
+plot_frequency_domain(np.abs(fft_data2), freqs2, "Frequency domain of sound2.wav")
 
 
 # data1_ifft = np.fft.ifft(fft_data1)
@@ -97,7 +111,7 @@ fft_data1 = clarify_sound(fft_data1, rate1, 5000, 7000)
 fft_data2 = clarify_sound(fft_data2, rate2, 5000, 7000)
 
 plot_frequency_domain(np.abs(fft_data1), freqs1, "Frequency domain of sound1.wav after clarification")
-plot_frequency_domain(np.abs(fft_data2), freq2, "Frequency domain of sound2.wav after clarification")
+plot_frequency_domain(np.abs(fft_data2), freqs2, "Frequency domain of sound2.wav after clarification")
 
 data1_ifft = np.fft.ifft(fft_data1)
 data2_ifft = np.fft.ifft(fft_data2)
@@ -105,11 +119,31 @@ data2_ifft = np.fft.ifft(fft_data2)
 plot_time_domain(data1_ifft, time1[:int(len(time1)/2)], "Time domain of sound1.wav after clarification")
 plot_time_domain(data2_ifft, time2[:int(len(time2)/2)], "Time domain of sound2.wav after clarification")
 
+#' remove noise
+# 0 to 50hz
+# damp 50 to 100
+# damp above 10khz
+data_noise_removed1 = remove_noise(0, 100, fft_data1, rate1)
+data_noise_removed1 = remove_noise(10000, 22000, data_noise_removed1, rate1)
+data_noise_removed2 = remove_noise(0, 100, fft_data2, rate2)
+data_noise_removed2 = remove_noise(10000, 22000, data_noise_removed2, rate2)
+
+plot_frequency_domain(np.abs(data_noise_removed1), freqs1, "Frequency domain of sound1.wav after noise removal")
+plot_frequency_domain(np.abs(data_noise_removed2), freqs2 , "Frequency domain of sound2.wav after noise removal")
 
 
+data_noise_removed1_ifft = np.fft.ifft(data_noise_removed1)
+data_noise_removed2_ifft = np.fft.ifft(data_noise_removed2)
+
+plot_time_domain(data_noise_removed1_ifft, time1[:int(len(time1)/2)], "Time domain of sound1.wav after noise removal")
+plot_time_domain(data_noise_removed2_ifft, time2[:int(len(time2)/2)], "Time domain of sound2.wav after noise removal")
 
 
-
+#' write to a wav file:
+data1_int16 = np.int16(data_noise_removed1_ifft * INT16_HALF_MAX)
+data2_int16 = np.int16(data_noise_removed2_ifft * INT16_HALF_MAX)
+wavfile.write('new_sound1.wav', rate1, data1_int16)
+wavfile.write('new_sound2.wav', rate2, data2_int16)
 
 
 
