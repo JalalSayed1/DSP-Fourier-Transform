@@ -30,7 +30,7 @@ decreases as their frequency increases due to energy distribution. The energy ge
 wider range of frequencies as frequency increases and hence a lower amplitude in the harmonic
 frequencies.
 
-![Frequency domain for sound1 and 2](https://github.com/JalalSayed1/DSP-Fourier-Transform/assets/92950538/f61bf1c1-0288-4dc3-b052-8180d6ec3382)
+![Frequency domain for sound1 and 2](figures/edited/Frequency%20domain%20for%20sound1%20and%202.svg)
 
 **Figure 1:** The plots show the annotated Frequency Domain of the Audio Signal identifying the peak vowels,
 consonants, and noise for **(a) Left:** sound recorded approximately 1 m away and **(b) Right:** sound recorded
@@ -88,15 +88,15 @@ filtering has attenuated certain peaks. Despite these modifications, the overall
 remain consistent, indicating no evidence of audio signal clipping.
 
 
-![Time domain of sound2 wav before and after noise removal](https://github.com/JalalSayed1/DSP-Fourier-Transform/assets/92950538/f9cc72a6-86ba-418d-b421-956e573a417b)
-![Time domain of sound1 wav before and after noise removal](https://github.com/JalalSayed1/DSP-Fourier-Transform/assets/92950538/6f5399cd-0361-417c-bce0-1fb35e472605)
+![Time domain of sound2 wav before and after noise removal](figures/Time%20domain%20of%20sound2.wav%20before%20and%20after%20noise%20removal.svg)
+![Time domain of sound1 wav before and after noise removal](figures/Time%20domain%20of%20sound1.wav%20before%20and%20after%20noise%20removal.svg)
 
 **Figure 2 :** The time -domain plot of the audio signal **(a) Above:** plot shows the sound recorded approximately
 1 m away **(b) Below:** plot shows the sound recorded approximately 1 cm away. _Blue graph is noise removed
 audio and orange graph is original non-processed audio._
 
-![Frequency domain of original1mwav before and after noise removal](https://github.com/JalalSayed1/DSP-Fourier-Transform/assets/92950538/394676a6-f657-4062-89b3-d04071dedf4e)
-![Frequency domain of original1cm wav before and after noise removal](https://github.com/JalalSayed1/DSP-Fourier-Transform/assets/92950538/3659f29f-13f1-46a6-81cc-e67a64ff5527)
+![Frequency domain of original1mwav before and after noise removal](figures/Frequency%20domain%20of%20original1mwav%20before%20and%20after%20noise%20removal.svg)
+![Frequency domain of original1cm wav before and after noise removal](figures/Frequency%20domain%20of%20original1cm.wav%20before%20and%20after%20noise%20removal.svg)
 
 **Figure 3 :** The frequency - domain plot of the audio signal showing the three stages of audio processing on
 different frequencies. **_(a) Above_** : plot shows the sound recorded approximately 1 m away **_(b) Below_** : plot shows
