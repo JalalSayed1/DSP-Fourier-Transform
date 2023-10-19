@@ -82,9 +82,11 @@ quality improved.
 In conclusion this assignment successfully demonstrated the use of Scipy and Numpy Python libraries
 to do audio signal processing on two sound waves.
 
-In Figure 2 below, for the frequency spectrum of both sound the frequency amplitudes have shifted
-for different audio processing. In noise removal (sound damping) the amplitude in dB becomes more
-negative, whereas for boosting (sound enhancement) the amplitude is higher value.
+In Figure 2 below, we present the time-domain representations of both the original and processed
+audio signals. While the processed data exhibits increased amplitudes to enhance volume, noise
+filtering has attenuated certain peaks. Despite these modifications, the overall duration and pattern
+remain consistent, indicating no evidence of audio signal clipping.
+
 
 ![Time domain of sound2 wav before and after noise removal](https://github.com/JalalSayed1/DSP-Fourier-Transform/assets/92950538/f9cc72a6-86ba-418d-b421-956e573a417b)
 ![Time domain of sound1 wav before and after noise removal](https://github.com/JalalSayed1/DSP-Fourier-Transform/assets/92950538/6f5399cd-0361-417c-bce0-1fb35e472605)
@@ -101,10 +103,9 @@ different frequencies. **_(a) Above_** : plot shows the sound recorded approxima
 the sound recorded approximately 1 cm away. _Blue graph is original non-processed audio, orange graph is
 improved speech audio and green graph is noise removed audio._
 
-In Figure 3 above, we present the time-domain representations of both the original and processed
-audio signals. While the processed data exhibits increased amplitudes to enhance volume, noise
-filtering has attenuated certain peaks. Despite these modifications, the overall duration and pattern
-remain consistent, indicating no evidence of audio signal clipping.
+In Figure 3 above, for the frequency spectrum of both sound the frequency amplitudes have shifted
+for different audio processing. In noise removal (sound damping) the amplitude in dB becomes more
+negative, whereas for boosting (sound enhancement) the amplitude is higher value.
 
 ## References
 
