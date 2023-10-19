@@ -78,8 +78,8 @@ def main():
         data_noise_removed1, time1, legend="noiseremoved1cm.wav", figure=figure_time_domain_1)
     figure_time_domain_1 = plot_time_domain(
         data1, time1, legend="original1cm.wav", figure=figure_time_domain_1)
-    figure_time_domain_1 = plot_time_domain(
-        data1, time1, legend="improved1cm.wav", figure=figure_time_domain_1)
+    # figure_time_domain_1 = plot_time_domain(
+    #     data1, time1, legend="improved1cm.wav", figure=figure_time_domain_1)
 
     figure_time_domain_2 = plt.figure()
     data_noise_removed2 = my_ifft(fft_data_noise_removed2)
@@ -88,13 +88,18 @@ def main():
         data_noise_removed2, time2, legend="noiseremoved1m.wav", figure=figure_time_domain_2)
     figure_time_domain_2 = plot_time_domain(
         data2, time2, legend="original1m.wav", figure=figure_time_domain_2)
-    figure_time_domain_2 = plot_time_domain(
-        data2, time2, legend="improved1m.wav", figure=figure_time_domain_2)
+    # figure_time_domain_2 = plot_time_domain(
+    #     data2, time2, legend="improved1m.wav", figure=figure_time_domain_2)
 
     figure_time_domain_1.legend()
     figure_time_domain_2.legend()
     figure_frequency_domain_1.legend()
     figure_frequency_domain_2.legend()
+
+    figure_frequency_domain_1.savefig("noiseremoved1cm.svg", format="svg")
+    figure_frequency_domain_2.savefig("noiseremoved1m.svg", format="svg")
+    figure_time_domain_1.savefig("noiseremoved1cm_time.svg", format="svg")
+    figure_time_domain_2.savefig("noiseremoved1m_time.svg", format="svg")
 
     plt.show()
 
